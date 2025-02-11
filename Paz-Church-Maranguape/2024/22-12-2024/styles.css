@@ -1,0 +1,152 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #181818;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/* Contêiner principal */
+.video-container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Player de vídeo */
+.google-drive-video {
+    width: 100%;
+    height: 50vw;
+    /* Altura proporcional à largura */
+    position: relative;
+}
+
+/* Detalhes do vídeo */
+.video-details {
+    padding: 15px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+}
+
+/* Redes sociais no rodapé */
+.social-icons {
+    margin-top: 50px;
+    padding: 10px;
+    color: white;
+}
+
+.social-icons a {
+    color: white;
+    margin: 0 15px;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #6DD5FA;
+}
+
+.video-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.video-author {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.video-author img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Comentários */
+.comments-container {
+    width: 100%;
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-top: 1px solid #333;
+    margin-top: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .google-drive-video {
+        height: 60vw;
+        /* Ajuste para telas menores */
+    }
+
+    .video-title {
+        font-size: 16px;
+    }
+
+    .video-author img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .google-drive-video {
+        height: 70vw;
+        /* Ajuste maior para celulares */
+    }
+
+    .video-title {
+        font-size: 14px;
+    }
+
+    .video-author {
+        font-size: 12px;
+    }
+
+    .video-author img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .google-drive-video {
+        height: 40vw;
+        /* Ajuste para TVs grandes */
+    }
+}
+
+/* Placeholder para o rodapé */
+#footer-placeholder {
+    width: 100%; /* Ocupar a largura completa do container */
+    text-align: center; /* Centralizar o texto ou conteúdo do rodapé */
+    margin-top: 10px; /* Espaçamento entre o rodapé e o conteúdo acima */
+}
+
+/* Ajustes gerais para o rodapé */
+#footer-placeholder footer {
+    background-color: #1e1e1e; /* Fundo do rodapé combinando com o tema */
+    color: white;
+    padding: 10px 0;
+    font-size: 14px;
+    border-top: 1px solid #333; /* Linha superior para separar do restante */
+}

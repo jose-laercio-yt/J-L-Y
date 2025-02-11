@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding-top: 50px;
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #128C7E;
+}
+
+a {
+    text-decoration: none;
+    color: #25D366;
+    font-weight: bold;
+}
+
+/* Estilizando o ícone do Instagram e nome no centro inferior */
+.instagram-container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    background-color: #E1306C;
+    border-radius: 30px;
+    padding: 10px 20px;
+}
+
+.instagram-container img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.instagram-container a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.instagram-container a:hover {
+    text-decoration: underline;
+}

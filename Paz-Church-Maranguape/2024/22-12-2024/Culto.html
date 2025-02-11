@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://jose-status-yt.github.io/J-L/bibleverses/logos.png" type="paz.ico">
+    <title>CULTO 22/12/2024 - PAZ PAZ CHURCH MARANGUAPE</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="video-container">
+        <!-- Player de vídeo -->
+        <iframe class="google-drive-video"
+            src="https://drive.google.com/file/d/12PLyfbYQnasne9NBFmofDUaeAQnkyz4-/preview"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+
+        <!-- Detalhes do vídeo -->
+        <div class="video-details">
+            <div class="video-title">
+                CULTO DA PAZ CHURCH MARANGUAPE
+            </div>
+            <div class="video-author">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjC-1O4P4Vx3w9Gz7as08HW45sV4ILGx8nfeXepHW-ZvYe30xa1X2WygSZWw0sW_u2ap4joHQxFX2tIkF2qxXJE0m-sgrK91AmPh-qJ0fqaO5H3RbcnCcxjAMlf_eboKLioaPbxevcYeJmwGnSAxdNCQhJce918hTAFIolZ-gdF_ys5qMGJrUdhZMpJDjJm/w400-h400/logo%204.jpg"
+                    alt="Avatar do autor">
+                PAZ CHURCH MARANGUAPE
+            </div>
+            <!-- Local onde o rodapé será inserido -->
+            <div id="footer-placeholder">
+                <script>
+                    fetch('../../footer.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById('footer-placeholder').insertAdjacentHTML('beforeend', data);
+                        });
+                </script>
+
+
+            </div>
+
+            <div>
+                <!-- Seção de comentários -->
+                <div class="comments-container">
+                    <div id="disqus_thread"></div>
+                </div>
+
+                <script src="script.js"></script>
+            </div>
+</body>
+
+</html>
