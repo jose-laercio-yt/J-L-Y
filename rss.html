@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de RSS de Animes</title>
+</head>
+<body>
+  <h1>Gerar Feed RSS de Animes</h1>
+  <button onclick="gerarRSS()">Gerar RSS</button>
+  <pre id="rssOutput"></pre>
+
+  <script>
+    async function gerarRSS() {
+      const response = await fetch('episodios.json');
+      const episodios = await response.json();
+
+      let rss = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
+      rss += `<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">\n<channel>\n`;
+      rss += `<title>Feed de Animes</title>\n`;
+      rss += `<link>https://seuusuario.github.io/</link>\n`;
+      rss += `<description>Novos episódios de animes</description>\n`;
+      rss += `<language>pt-br</language>\n`;
+
+      episodios.forEach(ep => {
+        rss += `<item>\n`;
+        rss += `<title>${ep.titulo} Episódio ${ep.episodio} (${ep.idioma})</title>\n`;
+        rss += `<link>${ep.link}</link>\n`;
+        rss += `<description><![CDATA[<img src="${ep.imagem}" alt="Capa do episódio"><br>${ep.descricao}]]></description>\n`;
+        rss += `<pubDate>${new Date(ep.data).toUTCString()}</pubDate>\n`;
+        rss += `<media:thumbnail url="${ep.imagem}" />\n`;
+        rss += `</item>\n`;
+      });
+
+      rss += `</channel>\n</rss>`;
+
+      document.getElementById('rssOutput').textContent = rss;
+    }
+  </script>
+</body>
+</html>
