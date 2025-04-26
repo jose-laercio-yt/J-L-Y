@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/2/2f/Logo_TV_globo_1975.svg"
+        type="image/x-icon"> <!-- ícone -->
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            color: #00d9ff;
+            text-shadow: 0 0 10px #00d9ff, 0 0 20px #00d9ff;
+        }
+
+        select,
+        input,
+        textarea,
+        button {
+            margin: 10px;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 12px;
+            border: 2px solid #00d9ff;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            outline: none;
+            width: 300px;
+            transition: 0.3s;
+        }
+
+        select:hover,
+        input:hover,
+        textarea:hover,
+        button:hover {
+            border-color: #00ff95;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            cursor: pointer;
+            background: linear-gradient(45deg, #00d9ff, #00ff95);
+            color: #121212;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.8), 0 0 20px rgba(0, 255, 149, 0.8);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 20px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #00ff95, #00d9ff);
+            box-shadow: 0 0 25px rgba(0, 255, 149, 0.9), 0 0 30px rgba(0, 217, 255, 0.9);
+            transform: scale(1.05);
+        }
+
+        #resultado {
+            margin-top: 30px;
+            font-size: 2em;
+            font-weight: bold;
+            color: #00ff95;
+            text-shadow: 0 0 5px #00ff95;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #resultado.mostrar {
+            opacity: 1;
+            transform: scale(1);
+            animation: vibrar 0.4s;
+        }
+
+        @keyframes vibrar {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            25% {
+                transform: scale(1.05) translate(-5px, 5px);
+            }
+
+            50% {
+                transform: scale(1) translate(5px, -5px);
+            }
+
+            75% {
+                transform: scale(1.05) translate(-5px, 5px);
+            }
+
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #aaaaaa;
+            animation: piscar 1.5s infinite alternate;
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.6;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1>✨ Sorteador Mágico ✨</h1>
+
+    <select id="tipoSorteio">
+        <option value="nomes">Nomes</option>
+        <option value="coisas">Coisas</option>
+        <option value="numeros">Números</option>
+        <option value="equipes">Equipes</option>
+        <option value="grupos">Grupos</option>
+    </select>
+
+    <div id="entrada"></div>
+
+    <input type="number" id="quantos" placeholder="Quantos resultados?" />
+
+    <input type="checkbox" id="naoRepetir" /> Não repetir resultados
+
+    <button id="btnSortear" onclick="sortear()">Sortear!</button>
+
+    <div id="resultado"></div>
+
+    <audio id="audioSorteio">
+        <source src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" type="audio/ogg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <footer>
+        Criado por <a href="https://www.instagram.com/jose_laercio__/" target="_blank"
+            style="color:#00d9ff; text-decoration:none;">@jose_laercio</a>
+    </footer>
+
+    <script>
+        const entrada = document.getElementById('entrada');
+        const tipoSorteio = document.getElementById('tipoSorteio');
+        const resultadoDiv = document.getElementById('resultado');
+        const audio = document.getElementById('audioSorteio');
+        const botao = document.getElementById('btnSortear');
+        const quantosInput = document.getElementById('quantos');
+        const naoRepetir = document.getElementById('naoRepetir');
+
+        let resultadosAnteriores = [];
+
+        tipoSorteio.addEventListener('change', atualizarEntrada);
+
+        function atualizarEntrada() {
+            entrada.innerHTML = '';
+            if (tipoSorteio.value === 'numeros') {
+                entrada.innerHTML = `
+        <input type="number" id="min" placeholder="Mínimo">
+        <input type="number" id="max" placeholder="Máximo">
+        `;
+            } else {
+                entrada.innerHTML = `
+        <textarea id="lista" placeholder="Digite separados por vírgula" rows="4" cols="30"></textarea>
+        `;
+            }
+        }
+
+        atualizarEntrada();
+
+        function sortear() {
+            botao.disabled = true;
+            botao.style.transform = "scale(0.9)";
+
+            setTimeout(() => {
+                botao.style.transform = "scale(1)";
+                botao.disabled = false;
+            }, 200);
+
+            const tipo = tipoSorteio.value;
+            const quantos = parseInt(quantosInput.value) || 1; // Pega o número de resultados ou 1 por padrão
+            let resultado = '';
+            let resultadosNovos = [];
+
+            if (tipo === 'numeros') {
+                const min = parseInt(document.getElementById('min').value);
+                const max = parseInt(document.getElementById('max').value);
+                if (isNaN(min) || isNaN(max) || min >= max) {
+                    resultado = 'Digite um intervalo válido.';
+                } else {
+                    for (let i = 0; i < quantos; i++) {
+                        let novoResultado;
+                        do {
+                            novoResultado = Math.floor(Math.random() * (max - min + 1)) + min;
+                        } while (naoRepetir.checked && resultadosAnteriores.includes(novoResultado));
+                        resultadosNovos.push(novoResultado);
+                    }
+                }
+            } else {
+                const lista = document.getElementById('lista').value.split(',').map(item => item.trim()).filter(item => item);
+                if (lista.length === 0) {
+                    resultado = 'Digite ao menos um item!';
+                } else {
+                    for (let i = 0; i < quantos; i++) {
+                        let novoResultado;
+                        do {
+                            novoResultado = lista[Math.floor(Math.random() * lista.length)];
+                        } while (naoRepetir.checked && resultadosAnteriores.includes(novoResultado));
+                        resultadosNovos.push(novoResultado);
+                    }
+                }
+            }
+
+            resultadosAnteriores = resultadosAnteriores.concat(resultadosNovos);
+
+            resultado = resultadosNovos.join(', ');
+
+            resultadoDiv.textContent = `Resultado(s): ${resultado}`;
+            resultadoDiv.classList.remove('mostrar');
+            setTimeout(() => {
+                resultadoDiv.classList.add('mostrar');
+                audio.play();
+            }, 100);
+        }
+    </script>
+
+</body>
+
+</html>
