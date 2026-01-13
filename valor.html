@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulador de Preço</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #22c55e;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        .resultado {
+            margin-top: 15px;
+            background: #020617;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Simulador de Preço</h2>
+
+    <input type="number" id="valorProduto" placeholder="Valor do produto (R$)" step="0.01">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="resultado" id="resultado"></div>
+</div>
+
+<script>
+    function calcular() {
+        const valor = parseFloat(document.getElementById("valorProduto").value);
+
+        if (isNaN(valor)) {
+            document.getElementById("resultado").innerHTML = "Digite um valor válido!";
+            return;
+        }
+
+        const lucro = 0.20;
+        const total = valor + lucro;
+
+        document.getElementById("resultado").innerHTML = `
+            Valor do produto: R$ ${valor.toFixed(2)} <br>
+            Lucro: R$ ${lucro.toFixed(2)} <br>
+            <strong>Total: R$ ${total.toFixed(2)}</strong>
+        `;
+    }
+</script>
+
+</body>
+</html>
